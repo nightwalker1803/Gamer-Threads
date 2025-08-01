@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GamerThreads | Royal Gaming Attire</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        royal: {
+                            blue: '#1A237E',
+                            purple: '#4A148C',
+                            gold: '#D4AF37'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, #1A237E, #4A148C);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .royal-gradient {
+            background: linear-gradient(135deg, #1A237E 0%, #4A148C 100%);
+        }
+        
+        .game-card:hover .game-overlay {
+            opacity: 0.8;
+            background-color: rgba(26, 35, 126, 0.7);
+        }
+        
+        .gold-border {
+            border: 2px solid #D4AF37;
+        }
+        
+        .nav-item {
+            position: relative;
+        }
+        
+        .nav-item::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #D4AF37;
+            transition: width 0.3s ease;
+        }
+        
+        .nav-item:hover::after {
+            width: 100%;
+        }
+        
+        .btn-royal {
+            background: linear-gradient(90deg, #1A237E, #4A148C);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-royal:hover {
+            background: linear-gradient(90deg, #4A148C, #1A237E);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(74, 20, 140, 0.2);
+        }
+        
+        .btn-gold {
+            background-color: #D4AF37;
+            color: #1A237E;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-gold:hover {
+            background-color: #C9A227;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+    <!-- Navigation -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+        <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center">
+                    <a href="#" class="text-2xl font-bold text-royal-blue">GamerThreads</a>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#" class="nav-item">Home</a>
+                    <a href="#shop" class="nav-item">Shop</a>
+                    <a href="#about" class="nav-item">About</a>
+                    <a href="#contact" class="nav-item">Contact</a>
+                    <div class="relative">
+                        <button id="cart-btn" class="p-2 rounded-full hover:bg-gray-100 gold-border">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-royal-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                            </svg>
+                            <span id="cart-count" class="absolute -top-1 -right-1 bg-royal-gold text-royal-blue text-xs rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="p-2 rounded-md hover:bg-gray-100 gold-border">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-royal-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile menu -->
+            <div id="mobile-menu" class="hidden md:hidden pb-3 px-2 space-y-2">
+                <a href="#" class="block px-3 py-2 rounded-md hover:bg-gray-100">Home</a>
+                <a href="#shop" class="block px-3 py-2 rounded-md hover:bg-gray-100">Shop</a>
+                <a href="#about" class="block px-3 py-2 rounded-md hover:bg-gray-100">About</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md hover:bg-gray-100">Contact</a>
+                <button class="flex items-center px-3 py-2 rounded-md hover:bg-gray-100 gold-border">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-royal-blue" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                    </svg>
+                    Cart (<span id="mobile-cart-count">0</span>)
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="royal-gradient text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2 mb-8 md:mb-0">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">Royal Gaming Collection</h1>
+                <p class="text-xl mb-6 text-royal-gold">Elevate your style with premium gaming apparel fit for royalty.</p>
+                <a href="#shop" class="btn-gold px-6 py-3 rounded-full font-medium inline-block">Explore Collection</a>
+            </div>
+            <div class="md:w-1/2 flex justify-center">
+                <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/c1d7e5da-7344-4067-9eb2-c9c2abcb253a.png" alt="Regal model wearing navy blue gaming t-shirt with gold embroidery detailing of game logo" class="rounded-lg shadow-2xl w-full max-w-md gold-border" />
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Games -->
+    <section class="py-12 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-12 text-royal-blue">Featured Titles</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                <div class="flex flex-col items-center p-4 hover:scale-105 transition-transform gold-border rounded-lg">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/c4f98c70-38b2-4c09-bb6b-7142d8c24b68.png" alt="Black Myth Wukong Logo - Mythical Chinese warrior with golden staff" class="w-24 h-24 object-contain mb-2" />
+                    <span class="font-medium text-royal-blue">Black Myth</span>
+                </div>
+                <div class="flex flex-col items-center p-4 hover:scale-105 transition-transform gold-border rounded-lg">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/298644d5-1563-49d3-9e66-1deb59be9808.png" alt="Indiana Jones Logo - Adventurer hat and whip in golden brown" class="w-24 h-24 object-contain mb-2" />
+                    <span class="font-medium text-royal-blue">Indiana Jones</span>
+                </div>
+                <div class="flex flex-col items-center p-4 hover:scale-105 transition-transform gold-border rounded-lg">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/c560df65-2718-4c7d-9b7b-f7f951b4c1a1.png" alt="Zelda Logo - Golden Triforce symbol with royal blue accents" class="w-24 h-24 object-contain mb-2" />
+                    <span class="font-medium text-royal-blue">Zelda</span>
+                </div>
+                <div class="flex flex-col items-center p-4 hover:scale-105 transition-transform gold-border rounded-lg">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/1ca5204d-af33-4acf-b076-b2f0343e0f58.png" alt="Red Dead Redemption Logo - Western cowboy silhouette in sunset colors" class="w-24 h-24 object-contain mb-2" />
+                    <span class="font-medium text-royal-blue">Red Dead 2</span>
+                </div>
+                <div class="flex flex-col items-center p-4 hover:scale-105 transition-transform gold-border rounded-lg">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/1d864eca-9ed5-4a47-afb5-2b7ab0f7abe1.png" alt="Hogwarts Legacy Logo - Crest with golden magical creatures" class="w-24 h-24 object-contain mb-2" />
+                    <span class="font-medium text-royal-blue">Hogwarts</span>
+                </div>
+                <div class="flex flex-col items-center p-4 hover:scale-105 transition-transform gold-border rounded-lg">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/2bfd7aab-06c7-490d-9843-b04332677796.png" alt="Minecraft Logo - Pixelated block logo with gold accents" class="w-24 h-24 object-contain mb-2" />
+                    <span class="font-medium text-royal-blue">Minecraft</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shop Section -->
+    <section id="shop" class="py-12" style="background-color: #f0f2f5;">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-center mb-6 text-royal-blue">Royal Collection</h2>
+            <div class="flex justify-center mb-8">
+                <div class="flex space-x-2 overflow-x-auto pb-2 px-4">
+                    <button class="filter-btn px-4 py-2 rounded-full bg-royal-blue text-white shadow" data-filter="all">All</button>
+                    <button class="filter-btn px-4 py-2 rounded-full bg-white hover:bg-gray-100 gold-border" data-filter="pc">PC</button>
+                    <button class="filter-btn px-4 py-2 rounded-full bg-white hover:bg-gray-100 gold-border" data-filter="console">Console</button>
+                    <button class="filter-btn px-4 py-2 rounded-full bg-white hover:bg-gray-100 gold-border" data-filter="mobile">Mobile</button>
+                </div>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+                <!-- PC Game Tees -->
+                <div class="game-card bg-white rounded-lg overflow-hidden shadow hover:shadow-md transition-all gold-border" data-category="pc">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/c4bef425-c5f6-44c5-bb90-e7570466d792.png" alt="Valorant Phantom T-shirt featuring Jett character art in navy blue and gold royal design" class="w-full h-64 object-cover" />
+                        <div class="game-overlay absolute inset-0 flex items-center justify-center opacity-0 transition-opacity">
+                            <button class="add-to-cart btn-royal px-4 py-2 rounded-full font-medium">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-1 text-royal-blue">Valorant Phantom</h3>
+                        <p class="text-gray-700 mb-2">Premium Cotton Tee</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-royal-blue">$34.99</span>
+                            <div class="flex space-x-1">
+                                <span class="px-2 py-1 text-xs bg-royal-blue text-white rounded-full">PC</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Console Game Tees -->
+                <div class="game-card bg-white rounded-lg overflow-hidden shadow hover:shadow-md transition-all gold-border" data-category="console">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/2e1866c7-fd08-404f-86f5-ad4abea9a172.png" alt="Genshin Impact Windwheel T-shirt in deep purple with gold embroidery details" class="w-full h-64 object-cover" />
+                        <div class="game-overlay absolute inset-0 flex items-center justify-center opacity-0 transition-opacity">
+                            <button class="add-to-cart btn-royal px-4 py-2 rounded-full font-medium">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-1 text-royal-blue">Genshin Windwheel</h3>
+                        <p class="text-gray-700 mb-2">Premium Cotton Tee</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-royal-blue">$34.99</span>
+                            <div class="flex space-x-1">
+                                <span class="px-2 py-1 text-xs bg-royal-purple text-white rounded-full">PS5</span>
+                                <span class="px-2 py-1 text-xs bg-royal-purple text-white rounded-full">Xbox</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mobile Game Tees -->
+                <div class="game-card bg-white rounded-lg overflow-hidden shadow hover:shadow-md transition-all gold-border" data-category="mobile">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/5045396d-8e91-452c-b966-81f0e2b7bd90.png" alt="Mobile Legends Tigreal T-shirt in deep navy with gold warrior illustration" class="w-full h-64 object-cover" />
+                        <div class="game-overlay absolute inset-0 flex items-center justify-center opacity-0 transition-opacity">
+                            <button class="add-to-cart btn-royal px-4 py-2 rounded-full font-medium">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-1 text-royal-blue">MLbb Tigreal</h3>
+                        <p class="text-gray-700 mb-2">Premium Cotton Tee</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-royal-blue">$34.99</span>
+                            <div class="flex space-x-1">
+                                <span class="px-2 py-1 text-xs bg-royal-gold text-royal-blue rounded-full">Mobile</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Mixed Platform Tees -->
+                <div class="game-card bg-white rounded-lg overflow-hidden shadow hover:shadow-md transition-all gold-border" data-category="console,pc">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/51bc7e1b-7ea0-486e-9462-636638580ee8.png" alt="Call of Duty Operator T-shirt in dark navy with gold tactical artwork" class="w-full h-64 object-cover" />
+                        <div class="game-overlay absolute inset-0 flex items-center justify-center opacity-0 transition-opacity">
+                            <button class="add-to-cart btn-royal px-4 py-2 rounded-full font-medium">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-1 text-royal-blue">COD Operator</h3>
+                        <p class="text-gray-700 mb-2">Premium Cotton Tee</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-royal-blue">$34.99</span>
+                            <div class="flex space-x-1">
+                                <span class="px-2 py-1 text-xs bg-royal-blue text-white rounded-full">PC</span>
+                                <span class="px-2 py-1 text-xs bg-royal-purple text-white rounded-full">Console</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Black Myth Wukong Tee -->
+                <div class="game-card bg-white rounded-lg overflow-hidden shadow hover:shadow-md transition-all gold-border" data-category="pc">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/17ccbafa-364e-4629-b44b-0d5d352f7297.png" alt="Black Myth Wukong T-shirt featuring Monkey King artwork in black and gold" class="w-full h-64 object-cover" />
+                        <div class="game-overlay absolute inset-0 flex items-center justify-center opacity-0 transition-opacity">
+                            <button class="add-to-cart btn-royal px-4 py-2 rounded-full font-medium">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-1 text-royal-blue">Black Myth Wukong</h3>
+                        <p class="text-gray-700 mb-2">Premium Cotton Tee</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-royal-blue">$34.99</span>
+                            <div class="flex space-x-1">
+                                <span class="px-2 py-1 text-xs bg-royal-blue text-white rounded-full">PC</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Red Dead Redemption 2 Tee -->
+                <div class="game-card bg-white rounded-lg overflow-hidden shadow hover:shadow-md transition-all gold-border" data-category="console">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/aa202c5b-0278-4fbc-93bf-7684e9451f92.png" alt="Red Dead Redemption 2 T-shirt with western cowboy art in earthy tones" class="w-full h-64 object-cover" />
+                        <div class="game-overlay absolute inset-0 flex items-center justify-center opacity-0 transition-opacity">
+                            <button class="add-to-cart btn-royal px-4 py-2 rounded-full font-medium">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-1 text-royal-blue">Red Dead Redemption</h3>
+                        <p class="text-gray-700 mb-2">Premium Cotton Tee</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-royal-blue">$34.99</span>
+                            <div class="flex space-x-1">
+                                <span class="px-2 py-1 text-xs bg-royal-purple text-white rounded-full">PS5</span>
+                                <span class="px-2 py-1 text-xs bg-royal-purple text-white rounded-full">Xbox</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Hogwarts Legacy Tee -->
+                <div class="game-card bg-white rounded-lg overflow-hidden shadow hover:shadow-md transition-all gold-border" data-category="pc,console">
+                    <div class="relative">
+                        <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/2adcf8c7-9273-4e09-9a9b-dd0bbe893d12.png" alt="Hogwarts Legacy T-shirt with golden magical crest" class="w-full h-64 object-cover" />
+                        <div class="game-overlay absolute inset-0 flex items-center justify-center opacity-0 transition-opacity">
+                            <button class="add-to-cart btn-royal px-4 py-2 rounded-full font-medium">Add to Cart</button>
+                        </div>
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-lg mb-1 text-royal-blue">Hogwarts Legacy</h3>
+                        <p class="text-gray-700 mb-2">Premium Cotton Tee</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-royal-blue">$34.99</span>
+                            <div class="flex space-x-1">
+                                <span class="px-2 py-1 text-xs bg-royal-blue text-white rounded-full">PC</span>
+                                <span class="px-2 py-1 text-xs bg-royal-purple text-white rounded-full">Console</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="lg:grid lg:grid-cols-2 lg:gap-8 items-center">
+                <div class="mb-8 lg:mb-0">
+                    <img src="https://storage.googleapis.com/workspace-0f70711f-8b4e-4d94-86f1-2a93ccde5887/image/f16bfbef-37e4-4613-a2eb-80d843f3b6f4.png" alt="Elegant store interior with royal blue gaming merchandise displayed on golden shelves" class="w-full rounded-lg gold-border shadow" />
+                </div>
+                <div>
+                    <h2 class="text-3xl font-bold mb-6 text-royal-blue">Our Royal Legacy</h2>
+                    <p class="text-gray-700 mb-4">
+                        Born from a passion for gaming and royal aesthetics, GamerThreads merges the worlds of esports and high fashion. 
+                        Each piece in our collection is crafted with the finest materials and attention to detail worthy of gaming nobility.
+                    </p>
+                    <p class="text-gray-700 mb-6">
+                        Our designs celebrate iconic gaming moments while maintaining a refined, sophisticated aesthetic that transcends 
+                        traditional gaming merch. Perfect for both casual wear and special gaming events.
+                    </p>
+                    <button class="btn-gold px-6 py-3 rounded-full font-medium">Learn Our Story</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="royal-gradient text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">GamerThreads</h3>
+                    <p class="mb-4 text-royal-gold">Royal Gaming Attire for the Discerning Player</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="hover:text-royal-gold">Twitter</a>
+                        <a href="#" class="hover:text-royal-gold">Instagram</a>
+                        <a href="#" class="hover:text-royal-gold">Discord</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Shop</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-royal-gold">New Arrivals</a></li>
+                        <li><a href="#" class="hover:text-royal-gold">PC Gaming</a></li>
+                        <li><a href="#" class="hover:text-royal-gold">Console Collection</a></li>
+                        <li><a href="#" class="hover:text-royal-gold">Mobile Series</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Support</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="hover:text-royal-gold">Contact Us</a></li>
+                        <li><a href="#" class="hover:text-royal-gold">FAQs</a></li>
+                        <li><a href="#" class="hover:text-royal-gold">Shipping</a></li>
+                        <li><a href="#" class="hover:text-royal-gold">Returns</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Newsletter</h4>
+                    <p class="mb-4 text-royal-gold">Subscribe for exclusive royal gaming drops</p>
+                    <form class="flex">
+                        <input type="email" placeholder="Your email" class="px-4 py-2 w-full rounded-l focus:outline-none text-gray-900" />
+                        <button class="bg-royal-gold text-royal-blue px-4 py-2 rounded-r font-medium">Join</button>
+                    </form>
+                </div>
+            </div>
+            <div class="border-t border-royal-gold mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-royal-gold mb-4 md:mb-0">© 2023 GamerThreads. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-royal-gold">Privacy Policy</a>
+                    <a href="#" class="hover:text-royal-gold">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50">
+        <div class="absolute right-0 top-0 bottom-0 bg-white w-full max-w-md shadow-lg overflow-y-auto">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-xl font-bold text-royal-blue">Your Royal Collection</h3>
+                    <button id="close-cart" class="text-gray-500 hover:text-royal-blue">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+                <div id="cart-items" class="space-y-4">
+                    <!-- Cart items will be added here dynamically -->
+                    <p class="text-center text-gray-500">Your cart is empty</p>
+                </div>
+                <div class="border-t mt-6 pt-6">
+                    <div class="flex justify-between mb-4">
+                        <span class="font-medium">Subtotal:</span>
+                        <span id="cart-subtotal" class="font-bold">$0.00</span>
+                    </div>
+                    <button class="btn-royal w-full py-3 rounded-full font-medium">Checkout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Cart Functionality
+        const cartBtn = document.getElementById('cart-btn');
+        const cartModal = document.getElementById('cart-modal');
+        const closeCartBtn = document.getElementById('close-cart');
+        const cartCountEls = document.querySelectorAll('#cart-count, #mobile-cart-count');
+        
+        let cart = [];
+        let cartTotal = 0;
+        
+        cartBtn.addEventListener('click', () => {
+            cartModal.classList.remove('hidden');
+        });
+        
+        closeCartBtn.addEventListener('click', () => {
+            cartModal.classList.add('hidden');
+        });
+        
+        // Filter Functionality
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active button
+                filterBtns.forEach(b => b.classList.remove('bg-royal-blue', 'text-white'));
+                btn.classList.add('bg-royal-blue', 'text-white');
+                
+                // Filter items
+                const filter = btn.dataset.filter;
+                const gameCards = document.querySelectorAll('.game-card');
+                
+                gameCards.forEach(card => {
+                    if (filter === 'all' || card.dataset.category.includes(filter)) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+            });
+        });
+        
+        // Add to cart functionality
+        const addToCartBtns = document.querySelectorAll('.add-to-cart');
+        
+        addToCartBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const card = e.target.closest('.game-card');
+                const title = card.querySelector('h3').textContent;
+                const price = parseFloat(card.querySelector('span').textContent.replace('$', ''));
+                
+                cart.push({ title, price });
+                cartTotal += price;
+                updateCart();
+                
+                // Visual feedback
+                btn.textContent = 'Added!';
+                setTimeout(() => {
+                    btn.textContent = 'Add to Cart';
+                }, 1000);
+            });
+        });
+        
+        function updateCart() {
+            // Update counts
+            const count = cart.length;
+            cartCountEls.forEach(el => el.textContent = count);
+            
+            // Update cart modal
+            const cartItemsEl = document.getElementById('cart-items');
+            const cartSubtotalEl = document.getElementById('cart-subtotal');
+            
+            if (count === 0) {
+                cartItemsEl.innerHTML = '<p class="text-center text-gray-500">Your cart is empty</p>';
+            } else {
+                cartItemsEl.innerHTML = '';
+                cart.forEach(item => {
+                    const itemEl = document.createElement('div');
+                    itemEl.className = 'flex justify-between items-center border-b pb-2';
+                    itemEl.innerHTML = `
+                        <div>
+                            <h4 class="font-medium text-royal-blue">${item.title}</h4>
+                            <p class="text-sm text-gray-500">Premium Cotton Tee</p>
+                        </div>
+                        <span class="font-bold">$${item.price.toFixed(2)}</span>
+                    `;
+                    cartItemsEl.appendChild(itemEl);
+                });
+            }
+            
+            cartSubtotalEl.textContent = `$${cartTotal.toFixed(2)}`;
+        }
+        
+        // Initialize first filter button as active
+        filterBtns[0].classList.add('bg-royal-blue', 'text-white');
+    </script>
+</body>
+</html>
